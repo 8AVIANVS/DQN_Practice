@@ -156,17 +156,17 @@ class DQNAgent:
     def __init__(self, state_size, action_size):
         self.state_size = state_size
         self.action_size = action_size
-        self.memory = ReplayBuffer(50000)
-        self.gamma = 0.9
+        self.memory = ReplayBuffer(20000)
+        self.gamma = 0.85
         self.epsilon = 1.0
         self.epsilon_decay = 0.999
         self.epsilon_min = 0.3
-        self.learning_rate = 0.0005
+        self.learning_rate = 0.0002
         self.model = DQN(state_size, action_size).to(device)
         self.target_model = DQN(state_size, action_size).to(device)
         self.update_target_model()
         self.optimizer = optim.Adam(self.model.parameters(), lr=self.learning_rate)
-        self.temperature = 6
+        self.temperature = 8
         self.target_update_counter = 0
         self.target_update_freq = 10
 
@@ -231,7 +231,7 @@ if __name__ == "__main__":
     agent1 = DQNAgent(state_size, action_size)
     agent2 = DQNAgent(state_size, action_size)
 
-    episodes = 5000
+    episodes = 15000
     batch_size = 128
 
     # Keep track of scores for monitoring
